@@ -1,6 +1,5 @@
 import random as rd
-#🔵
-#🔴
+
 print("Welcome to Connect Four")
 print("-----------------------")
 Letters = ["A","B","C","D","E","F","G"]
@@ -22,7 +21,6 @@ def printBoard():
                 print("    |", end="")
     print("\n   +----+----+----+----+----+----+----+")
 
-
 def modifyBoard(column, turn):
     for row in range(rows-1, -1, -1):
         if Board[row][column] == "":
@@ -32,8 +30,8 @@ def modifyBoard(column, turn):
 
 def checkForWinner(chip):
     # Check horizontal lines
-    for y in range(cols):  # Iterate through columns
-        for x in range(rows - 3):  # Ensure we have enough rows to check horizontally
+    for y in range(cols):
+        for x in range(rows - 3):
             if Board[x][y] == chip and Board[x + 1][y] == chip and Board[x + 2][y] == chip and Board[x + 3][y] == chip:
                 if chip == "X":
                     print("\nGame over! Player 1 wins! Thank you for playing :)")
@@ -43,8 +41,8 @@ def checkForWinner(chip):
                     return True
 
     # Check vertical lines
-    for x in range(rows):  # Iterate through rows
-        for y in range(cols - 3):  # Ensure we have enough columns to check vertically
+    for x in range(rows):
+        for y in range(cols - 3):
             if Board[x][y] == chip and Board[x][y + 1] == chip and Board[x][y + 2] == chip and Board[x][y + 3] == chip:
                 if chip == "X":
                     print("\nGame over! Player 1 wins! Thank you for playing :)")
@@ -76,7 +74,6 @@ def checkForWinner(chip):
                     return True
     return False
 
-
 def coordinateParser(input):
     match input:
         case "A":
@@ -94,39 +91,46 @@ def coordinateParser(input):
         case "G":
             return 6
         case _:
-            print("Invalid")
-            return -1
+            print("Invalid input. Please enter a valid column (A-G).")
+            return None
 
 def isSpaceAvailable(column):
     return any(Board[row][column] == "" for row in range(rows))
 
 def game():
     turnCounter = 0
-    while(True):
+    while True:
         printBoard()
-        if(turnCounter % 2 == 0):
-          print("\nPlayer 1's turn")
-          spacePicked = input("Please pick a space (e.g. A): ")
-          spacePicked = coordinateParser(spacePicked)
-          if(isSpaceAvailable(spacePicked)):
-              modifyBoard(spacePicked, "X")
-              if(checkForWinner("X")):
-                printBoard()
-                break
-              turnCounter += 1
-          else:
-              print("Space is already taken")
+        if turnCounter % 2 == 0:
+            print("\nPlayer 1's turn")
+            spacePicked = input("Please pick a space (e.g. A): ")
+            spacePicked = coordinateParser(spacePicked)
+            if spacePicked is not None and isSpaceAvailable(spacePicked):
+                modifyBoard(spacePicked, "X")
+                if checkForWinner("X"):
+                    printBoard()
+                    break
+                turnCounter += 1
+            elif spacePicked is None:
+                print("Invalid input. Please try again.")
+            else:
+                print("Space is already taken")
         else:
-          print("\nPlayer 2's turn")
-          spacePicked = input("Please pick a space (e.g. A): ")
-          spacePicked = coordinateParser(spacePicked)
-          if(isSpaceAvailable(spacePicked)):
-              modifyBoard(spacePicked, "O")
-              if(checkForWinner("O")):
-                printBoard()
-                break
-              turnCounter += 1
-          else:
-              print("Space is already taken")
+            print("\nPlayer 2's turn")
+            spacePicked = input("Please pick a space (e.g. A): ")
+            spacePicked = coordinateParser(spacePicked)
+            if spacePicked is not None and isSpaceAvailable(spacePicked):
+                modifyBoard(spacePicked, "O")
+                if checkForWinner("O"):
+                    printBoard()
+                    break
+                turnCounter += 1
+            elif spacePicked is None:
+                print("Invalid input. Please try again.")
+            else:
+                print("Space is already taken")
+
+game()
+
 
 game()
