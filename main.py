@@ -9,45 +9,51 @@ rows = 6
 cols = 7
 
 def printBoard():
-  print("\n     A    B    C    D    E    F    G  ", end="")
-  for x in range(rows):
+    print("\n     A    B    C    D    E    F    G  ", end="")
+    for x in range(rows):
+        print("\n   +----+----+----+----+----+----+----+")
+        print(x, " |", end="")
+        for y in range(cols):
+            if Board[x][y] == "X":
+                print(" 🔴 |", end="")
+            elif Board[x][y] == "O":
+                print(" 🟡 |", end="")
+            else:
+                print("    |", end="")
     print("\n   +----+----+----+----+----+----+----+")
-    print(x, " |", end="")
-    for y in range(cols):
-      if(Board[x][y] == "X"):
-        print("",Board[x][y], end=" |")
-      elif(Board[x][y] == "O"):
-        print("", Board[x][y], end=" |")
-      else:
-        print(" ", Board[x][y], end="  |")
-  print("\n   +----+----+----+----+----+----+----+")
 
-def modifyBoard(spacePicked, turn):
-    Board[spacePicked[0]][spacePicked[1]] = turn
+
+
+def modifyBoard(column, turn):
+    for row in range(rows-1, -1, -1):
+        if Board[row][column] == "":
+            Board[row][column] = turn
+            return
+    print("Column is full. Please pick another column.")
 
 def checkForWinner(chip):
-  # Check horizontal spaces
+  # Check horizontal lines
   for y in range(rows):
     for x in range(cols - 3):
       if Board[x][y] == chip and Board[x+1][y] == chip and Board[x+2][y] == chip and Board[x+3][y] == chip:
         print("\nGame over!", chip, "wins! Thank you for playing :)")
         return True
 
-  # Check vertical spaces
+  # Check vertical lines
   for x in range(rows):
     for y in range(cols - 3):
       if Board[x][y] == chip and Board[x][y+1] == chip and Board[x][y+2] == chip and Board[x][y+3] == chip:
         print("\nGame over!", chip, "wins! Thank you for playing :)")
         return True
 
-  # Check upper right to bottom left diagonal spaces
+  # Check upper right to bottom left diagonal lines
   for x in range(rows - 3):
     for y in range(3, cols):
       if Board[x][y] == chip and Board[x+1][y-1] == chip and Board[x+2][y-2] == chip and Board[x+3][y-3] == chip:
         print("\nGame over!", chip, "wins! Thank you for playing :)")
         return True
 
-  # Check upper left to bottom right diagonal spaces
+  # Check upper left to bottom right diagonal lines
   for x in range(rows - 3):
     for y in range(cols - 3):
       if Board[x][y] == chip and Board[x+1][y+1] == chip and Board[x+2][y+2] == chip and Board[x+3][y+3] == chip:
