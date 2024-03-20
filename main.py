@@ -22,3 +22,6 @@ def printBoard():
         print(" ", Board[x][y], end="  |")
   print("\n   +----+----+----+----+----+----+----+")
 
+def modifyBoard(spacePicked, turn):
+    Board[spacePicked[0]][spacePicked[1]] = turn
+
