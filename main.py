@@ -23,7 +23,6 @@ def printBoard():
     print("\n   +----+----+----+----+----+----+----+")
 
 
-
 def modifyBoard(column, turn):
     for row in range(rows-1, -1, -1):
         if Board[row][column] == "":
@@ -35,29 +34,65 @@ def checkForWinner(chip):
   # Check horizontal lines
   for y in range(rows):
     for x in range(cols - 3):
-      if Board[x][y] == chip and Board[x+1][y] == chip and Board[x+2][y] == chip and Board[x+3][y] == chip:
-        print("\nGame over!", chip, "wins! Thank you for playing :)")
-        return True
+        if Board[x][y] == chip and Board[x + 1][y] == chip and Board[x + 2][y] == chip and Board[x + 3][y] == chip:
+            if chip == "X":
+                print("\nGame over! Player 1 wins! Thank you for playing :)")
+                return True
+            else:
+                print("\nGame over! Player 2 wins! Thank you for playing :)")
+                return True
 
-  # Check vertical lines
+            # Check vertical lines
   for x in range(rows):
     for y in range(cols - 3):
-      if Board[x][y] == chip and Board[x][y+1] == chip and Board[x][y+2] == chip and Board[x][y+3] == chip:
-        print("\nGame over!", chip, "wins! Thank you for playing :)")
-        return True
+        if Board[x][y] == chip and Board[x][y+1] == chip and Board[x][y+2] == chip and Board[x][y+3] == chip:
+            if chip == "X":
+                print("\nGame over! Player 1 wins! Thank you for playing :)")
+                return True
+            else:
+                print("\nGame over! Player 2 wins! Thank you for playing :)")
+                return True
 
-  # Check upper right to bottom left diagonal lines
+            # Check upper right to bottom left diagonal lines
   for x in range(rows - 3):
     for y in range(3, cols):
       if Board[x][y] == chip and Board[x+1][y-1] == chip and Board[x+2][y-2] == chip and Board[x+3][y-3] == chip:
-        print("\nGame over!", chip, "wins! Thank you for playing :)")
-        return True
+          if chip == "X":
+              print("\nGame over! Player 1 wins! Thank you for playing :)")
+              return True
+          else:
+              print("\nGame over! Player 2 wins! Thank you for playing :)")
+              return True
 
-  # Check upper left to bottom right diagonal lines
+              # Check upper left to bottom right diagonal lines
   for x in range(rows - 3):
     for y in range(cols - 3):
-      if Board[x][y] == chip and Board[x+1][y+1] == chip and Board[x+2][y+2] == chip and Board[x+3][y+3] == chip:
-        print("\nGame over!", chip, "wins! Thank you for playing :)")
-        return True
+        if Board[x][y] == chip and Board[x+1][y+1] == chip and Board[x+2][y+2] == chip and Board[x+3][y+3] == chip:
+          if chip == "X":
+            print("\nGame over! Player 1 wins! Thank you for playing :)")
+            return True
+          else:
+            print("\nGame over! Player 2 wins! Thank you for playing :)")
+            return True
   return False
+
+def coordinateParser(input):
+    match input:
+        case "A":
+            return 0
+        case "B":
+            return 1
+        case "C":
+            return 2
+        case "D":
+            return 3
+        case "E":
+            return 4
+        case "F":
+            return 5
+        case "G":
+            return 6
+        case _:
+            print("Invalid")
+            return -1
 
